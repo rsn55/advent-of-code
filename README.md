@@ -1,2 +1,2 @@
 # advent-of-code
-My solutions to Advent of Code
+My solutions to https://adventofcode.com/ challenges in TypeScript.
