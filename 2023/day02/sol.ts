@@ -42,7 +42,7 @@ class Day2 {
         return powerSum;
     }
 
-     // ====== Helpers ======
+    // ====== Helpers ======
 
     getColorCounts(subset: string): {red: number, green: number, blue: number} {
         const red = this.getColorCount(subset, 'red');
