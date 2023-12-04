@@ -107,7 +107,7 @@ class Day3 {
                     const chars_below_star = next_row.substring(start_diag, end_diag + 1);
 
                     if (this.hasNumber(chars_below_star)) {
-                        const all_next_row_nums = [...schema_lines[row_i + 1].matchAll(/(\d+)/g)];
+                        const all_next_row_nums = [...this.getAllNumbers(next_row)];
                         const nums_below_star = all_next_row_nums.filter((match) => {
                             const start_num_idx = match.index!; // where the number starts
                             const end_num_idx = match.index! + match[1].length - 1; // where the number ends
