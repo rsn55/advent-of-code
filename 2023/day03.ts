@@ -1,7 +1,6 @@
 class Day3 {
 
     // View challenge: https://adventofcode.com/2023/day/3
-    // This solution (especially part 2) is pretty ugly. I recommend reading a different day's solution instead :D
 
     solveForPartOne(input: string): number {
         const schema_lines = input.split('\n');
