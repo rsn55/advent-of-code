@@ -42,6 +42,8 @@ class Day7 {
         return totalWinnings;
     }
 
+    // ====== Helpers ======
+
     // sort hands lowest -> highest based on hand strength (in place),
     // and tie-break with high card comparison according to the [cardRanking] provided
     sortHandsOnStrength(handInfos: HandInfo[], cardRanking: {[k: string]: number}) {
