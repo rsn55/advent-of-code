@@ -2,7 +2,7 @@ class Day7 {
 
     // View challenge: https://adventofcode.com/2023/day/7
 
-    solveForPartOne(input: string): string {
+    solveForPartOne(input: string): number {
         let handInfos: HandInfo[] = input.split('\n').map(line => line.split(/\s+/)).map(handInfo => ({hand: handInfo[0], bet: parseInt(handInfo[1]), strength: 0}));
         // calculate poker hand strength
         handInfos = handInfos.map((handInfo: HandInfo) => {
@@ -19,10 +19,10 @@ class Day7 {
             const rank = j + 1;
             totalWinnings += rank * handInfos[j].bet;
         }
-        return totalWinnings.toString();
+        return totalWinnings;
     }
 
-    solveForPartTwo(input: string): string {
+    solveForPartTwo(input: string): number {
         let handInfos: HandInfo[] = input.split('\n').map(line => line.split(/\s+/)).map(handInfo => ({hand: handInfo[0], bet: parseInt(handInfo[1]), strength: 0}));
         // calculate poker hand strength
         handInfos = handInfos.map((handInfo: HandInfo) => {
@@ -39,7 +39,7 @@ class Day7 {
             const rank = j + 1;
             totalWinnings += rank * handInfos[j].bet;
         }
-        return totalWinnings.toString();
+        return totalWinnings;
     }
 
     // sort hands lowest -> highest based on hand strength (in place),
