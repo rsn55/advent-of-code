@@ -34,11 +34,11 @@ class Day6 {
 
     // ====== Helpers ======
 
-    // Solves a quadratic equation with ( -b ± √(b²-4ac) ) / (2a)
-    quadraticFormula(quadCoeff: number, linCoeff: number, constant: number): [number, number] {
-        const topPlus =  (-1)*linCoeff + Math.sqrt(linCoeff*linCoeff - 4 * quadCoeff * constant);
-        const topMinus =  (-1)*linCoeff - Math.sqrt(linCoeff*linCoeff - 4 * quadCoeff * constant);
-        return [topPlus / (2 * quadCoeff), topMinus / (2 * quadCoeff)];
+    // Solves a quadratic equation of form `ax²+bx+c` with quadratic formula `( -b ± √(b²-4ac) ) / (2a)`
+    quadraticFormula(a: number, b: number, c: number): [number, number] {
+        const topPlus =  (-1)*b + Math.sqrt(b*b - 4 * a * c);
+        const topMinus =  (-1)*b - Math.sqrt(b*b - 4 * a * c);
+        return [topPlus / (2 * a), topMinus / (2 * a)];
     }
 }
 
