@@ -88,12 +88,13 @@ class Day13 {
             // If you find any mismatch, this is not a valid mirror reflection point.
             let distance = 0;
             let fixedSmudgeCount = 0; // we want to fix exactly 1 smudge for this reflection point
+            let isInvalid = false;
             while (prevLine + distance + 1 < rows.length && prevLine - distance >= 0){
                 const rowB = rows[prevLine + distance + 1];
                 const rowA = rows[prevLine - distance];
                 if (rowA !== rowB) {
                     if (fixedSmudgeCount > 0) { // too many mismatches, invalid
-                        fixedSmudgeCount++;
+                        isInvalid = true;
                         break;
                     } else {
                         // make sure only exactly one character is different
@@ -107,13 +108,14 @@ class Day13 {
                             fixedSmudgeCount++;
                         } else {
                             // too many smudges, invalid
+                            isInvalid = true;
                             break;
                         }
                     }
                 }
                 distance++
             }
-            if (fixedSmudgeCount === 1) {
+            if (!isInvalid && fixedSmudgeCount === 1) {
                 // we checked every surrounding pair and determined that this
                 // is the valid reflection point with only 1 smudge, so we don't need to check any others
                 isReflectionPoint = true;
@@ -135,7 +137,7 @@ class Day13 {
             rows.forEach((row) => column += (row[c]));
             columns.push(column);
         }
-        return columns
+        return columns;
     }
 }
 
