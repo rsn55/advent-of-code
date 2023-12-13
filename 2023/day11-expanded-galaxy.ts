@@ -10,8 +10,6 @@ class Day11 {
         return this.getPathLenOfExpandedGalaxies(input, 1000000)
     }
 
-    // ====== Helpers ======
-
     /** Expand the empty rows/cols by the [multiplier] */
     getPathLenOfExpandedGalaxies(input: string, multiplier: number): number {
         const rows = input.split('\n');
