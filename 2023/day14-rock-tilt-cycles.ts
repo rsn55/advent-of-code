@@ -3,25 +3,8 @@ class Day14{
     // View challenge: https://adventofcode.com/2023/day/14
 
     solveForPartOne(input: string): number {
-        const rows = input.split('\n');
-        // tilt rocks north
-        for (let r = 0; r < rows.length; r++) {
-            for (let c = 0; c < rows[0].length; c++) {
-                if (rows[r][c] === 'O') {
-                    // move north until you hit another 'O' or a '#', or hit the top
-                    let testRow = r - 1;
-                    while (testRow >= 0 && rows[testRow][c] === '.') {
-                        testRow--;
-                    }
-                    // clear old row
-                    rows[r] = rows[r].substring(0,c) + '.' + rows[r].substring(c+1);
-                    // add rock to new row
-                    const newRow = testRow + 1;
-                    rows[newRow] = rows[newRow].substring(0,c) + 'O' + rows[newRow].substring(c+1);
-                }
-            }
-        }
-        // sum the load on the north side
+        let rows = input.split('\n');
+        rows = this.tiltNorth(rows);
         return this.getNorthLoad(rows);
     }
 
@@ -74,9 +57,17 @@ class Day14{
         return totalLoad;
     }
 
-    // tilt north, west, south, then east for a single cycle
-    applyTiltCycle(rows: string[]) {
-        // tilt north
+    turnClockwise(rows: string[]) : string[] {
+        let newRows: string[] =  Array(rows[0].length).fill('');
+        for (let c = 0; c < rows[0].length; c++) {
+            for (let r = 0; r < rows.length; r++) {
+                newRows[c] = rows[r][c] + newRows[c];
+            }
+        }
+        return newRows;
+    }
+
+    tiltNorth(rows: string[]) {
         for (let r = 0; r < rows.length; r++) {
             for (let c = 0; c < rows[0].length; c++) {
                 if (rows[r][c] === 'O') {
@@ -93,50 +84,16 @@ class Day14{
                 }
             }
         }
-        // tilt west
-        for (let r = 0; r < rows.length; r++) {
-            for (let c = 0; c < rows[0].length; c++) {
-                if (rows[r][c] === 'O') {
-                    // move west until you hit another 'O' or a '#', or hit the left side
-                    let testCol = c - 1;
-                    while (testCol >= 0 && rows[r][testCol] === '.') {
-                        testCol--;
-                    }
-                    // clear old col
-                    rows[r] = rows[r].substring(0,c) + '.' + rows[r].substring(c+1);
-                    // add round rock to new col
-                    const newCol = testCol + 1;
-                    rows[r] = rows[r].substring(0,newCol) + 'O' + rows[r].substring(newCol+1);
-                }
-            }
-        }            
-        // tilt south
-        for (let r = rows.length - 1; r >= 0; r--) {
-            for (let c = 0; c < rows[0].length; c++) {
-                if (rows[r][c] === 'O') {
-                    let testRow = r + 1;
-                    while (testRow < rows.length && rows[testRow][c] === '.') {
-                        testRow++;
-                    }
-                    rows[r] = rows[r].substring(0,c) + '.' + rows[r].substring(c+1);
-                    const newRow = testRow - 1;
-                    rows[newRow] = rows[newRow].substring(0,c) + 'O' + rows[newRow].substring(c+1);
-                }
-            }
-        }
-        // tilt east
-        for (let r = 0; r < rows.length; r++) {
-            for (let c = rows[0].length - 1; c >= 0; c--) {
-                if (rows[r][c] === 'O') {
-                    let testCol = c + 1;
-                    while (testCol <= rows[0].length - 1 && rows[r][testCol] === '.') {
-                        testCol++;
-                    }
-                    rows[r] = rows[r].substring(0,c) + '.' + rows[r].substring(c+1);
-                    const newCol = testCol - 1;
-                    rows[r] = rows[r].substring(0,newCol) + 'O' + rows[r].substring(newCol+1);
-                }
-            }
+        return rows;
+    }
+
+    // tilt north, west, south, then east for a single cycle. ends in the starting position.
+    applyTiltCycle(rows: string[]) {
+        let c = 0;
+        while (c < 4) {
+            c++;
+            rows = this.tiltNorth(rows);
+            rows = this.turnClockwise(rows);
         }
         return rows;
     }
